@@ -8,6 +8,7 @@ import {
 } from "react";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
+import { LOCAL_DARK_MODE } from "./const";
 
 type ThemeProviderWrapperProps = {
   children: ReactNode;
@@ -51,7 +52,11 @@ const ThemeProviderWrapper: FC<ThemeProviderWrapperProps> = ({ children }) => {
   });
 
   const toggleTheme = () => {
-    setMode(!darkMode);
+    setMode((res) => {
+      const newMode = !res;
+      chrome.storage.local.set({ [LOCAL_DARK_MODE]: newMode });
+      return newMode;
+    });
   };
 
   useEffect(() => {
@@ -67,6 +72,15 @@ const ThemeProviderWrapper: FC<ThemeProviderWrapperProps> = ({ children }) => {
     return () => {
       mediaQuery.removeEventListener("change", handleChange);
     };
+  }, []);
+
+  useEffect(() => {
+    // 从本地存储中读取主题模式
+    chrome.storage.local.get([LOCAL_DARK_MODE], (res) => {
+      if (res[LOCAL_DARK_MODE] !== undefined) {
+        setMode(res[LOCAL_DARK_MODE]);
+      }
+    });
   }, []);
 
   return (

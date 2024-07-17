@@ -1,6 +1,6 @@
 import { Container, Typography, Button } from "@mui/material";
 
-const OptionsApp: React.FC = () => {
+const App: React.FC = () => {
   return (
     <Container>
       <Typography variant="h4" component="h1" gutterBottom>
@@ -13,4 +13,4 @@ const OptionsApp: React.FC = () => {
   );
 };
 
-export default OptionsApp;
+export default App;
