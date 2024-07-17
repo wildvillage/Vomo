@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Vomo",
+  "version": "1.0",
+  "description": "A Chrome extension to modify API responses.",
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "./vite.svg",
+      "48": "./vite.svg",
+      "128": "./vite.svg"
+    }
+  },
+  "icons": {
+    "16": "./vite.svg",
+    "48": "./vite.svg",
+    "128": "./vite.svg"
+  }
+}
