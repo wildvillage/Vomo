@@ -7,14 +7,22 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        popup: resolve(__dirname, 'index.html'),
-        background: resolve(__dirname, 'public/background.js')
+        popup: resolve(__dirname, "src/Popup/index.html"),
+        options: resolve(__dirname, "src/Management/index.html"),
+        background: resolve(__dirname, "public/background.ts"),
       },
       output: {
-        entryFileNames: '[name].js',
-        chunkFileNames: '[name].js',
-        assetFileNames: '[name].[ext]'
-      }
-    }
-  }
+        entryFileNames: "[name].js",
+        chunkFileNames: "[name].js",
+        assetFileNames: "[name].[ext]",
+      },
+    },
+  },
+  server: {
+    hmr: {
+      protocol: "ws",
+      host: "localhost",
+    },
+    port: 3000,
+  },
 });
