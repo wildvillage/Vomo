@@ -1,5 +1,5 @@
 chrome.runtime.onInstalled.addListener(() => {
-  console.log("Extension installed");
+  console.log("Vomo installed");
 
   chrome.declarativeNetRequest.updateDynamicRules({
     addRules: [
@@ -7,11 +7,14 @@ chrome.runtime.onInstalled.addListener(() => {
         id: 1,
         priority: 1,
         action: {
+          // @ts-expect-error
           type: "modifyHeaders",
           responseHeaders: [
+            // @ts-expect-error
             { header: "X-Modified", operation: "set", value: "true" },
           ],
         },
+        // @ts-expect-error
         condition: { urlFilter: "*", resourceTypes: ["main_frame"] },
       },
     ],

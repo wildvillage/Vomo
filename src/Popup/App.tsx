@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   Box,
   Toolbar,
@@ -15,24 +15,35 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { ModuleType } from "../common/type";
 import { useTheme } from "../common/theme";
-
-import type { BottomNavigationOwnProps } from "@mui/material/BottomNavigation";
+import MResponse from "./module/MResponse";
+import MHeaders from "./module/MHeaders";
 
 function App() {
   const [module, setModule] = useState<ModuleType>(ModuleType.ModifyRes);
   const { isDarkTheme, toggleTheme } = useTheme();
-  // const handleClick = () => {
-  //   chrome.tabs.create({
-  //     url: chrome.runtime.getURL("src/Management/index.html"),
-  //   });
-  // };
 
-  const handleChange: BottomNavigationOwnProps["onChange"] = (_, value) => {
-    setModule(value);
+  const handleClick = () => {
+    chrome.tabs.create({
+      url: chrome.runtime.getURL("management.html?page=home"),
+    });
   };
 
+  const currentModule = useMemo(() => {
+    const moduleMap = {
+      [ModuleType.ModifyRes]: {
+        title: "1",
+        component: <MResponse />,
+      },
+      [ModuleType.Headers]: {
+        title: "2",
+        component: <MHeaders />,
+      },
+    };
+    return moduleMap[module];
+  }, [module]);
+
   return (
-    <div className="h-96 w-[500px]">
+    <div className="h-96 w-[550px]">
       <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
         <AppBar position="static">
           <Toolbar>
@@ -42,6 +53,7 @@ function App() {
               color="inherit"
               aria-label="menu"
               sx={{ mr: 2 }}
+              onClick={handleClick}
             >
               <MenuIcon />
             </IconButton>
@@ -55,11 +67,20 @@ function App() {
         </AppBar>
         <Box sx={{ display: "flex", flex: 1, height: "100%" }}>
           <MenuList>
-            <MenuItem>Modify response</MenuItem>
-            <MenuItem>Modify headers</MenuItem>
+            <MenuItem onClick={() => setModule(ModuleType.ModifyRes)}>
+              Modify response
+            </MenuItem>
+            <MenuItem onClick={() => setModule(ModuleType.Headers)}>
+              Modify headers
+            </MenuItem>
           </MenuList>
           <Divider orientation="vertical" className="h-full" />
-          <Box sx={{ flex: 1 }}></Box>
+          <Box sx={{ flex: 1 }} className="p-2">
+            <Typography variant="h6" component="div" className="mb-2">
+              {currentModule.title}
+            </Typography>
+            {currentModule.component}
+          </Box>
         </Box>
       </Box>
     </div>

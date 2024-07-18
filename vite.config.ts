@@ -1,15 +1,17 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import { resolve } from 'path';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { resolve } from "path";
+import manifestConfig from "./public/manifest";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), manifestConfig()],
   build: {
     rollupOptions: {
       input: {
-        popup: resolve(__dirname, "src/Popup/index.html"),
-        options: resolve(__dirname, "src/Management/index.html"),
-        background: resolve(__dirname, "public/background.ts"),
+        popup: resolve(__dirname, "popup.html"),
+        options: resolve(__dirname, "management.html"),
+        background: resolve(__dirname, "src/background.ts"),
+        dev: resolve(__dirname, "dev.html"),
       },
       output: {
         entryFileNames: "[name].js",
