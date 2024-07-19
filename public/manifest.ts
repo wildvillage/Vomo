@@ -29,7 +29,7 @@ function createManifest(mode: string) {
       48: "vite.svg",
       128: "vite.svg",
     },
-    options_page: "management.html",
+    options_page: isDev ? "management-dev.html" : "management.html",
     content_security_policy: {
       extension_pages: isDev
         ? "script-src 'self' http://localhost:5173; object-src 'self'"

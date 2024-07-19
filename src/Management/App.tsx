@@ -4,7 +4,7 @@ const App: React.FC = () => {
   return (
     <Container>
       <Typography variant="h4" component="h1" gutterBottom>
-        Vomo Extension Options
+        Vomo Extension Options33
       </Typography>
       <Button variant="contained" color="primary">
         Save Settings

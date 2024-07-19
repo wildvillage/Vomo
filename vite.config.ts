@@ -10,9 +10,11 @@ export default defineConfig(({ mode }) => {
     build: {
       rollupOptions: {
         input: {
-          dev: resolve(__dirname, "dev.html"),
-          popup: resolve(__dirname, "popup.html"),
-          options: resolve(__dirname, "management.html"),
+          popup: resolve(__dirname, isDev ? "dev.html" : "popup.html"),
+          options: resolve(
+            __dirname,
+            isDev ? "management-dev.html" : "management.html"
+          ),
           background: resolve(__dirname, "src/background.ts"),
         },
         output: {

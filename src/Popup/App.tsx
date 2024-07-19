@@ -18,26 +18,24 @@ import { useTheme } from "../common/theme";
 import MResponse from "./module/MResponse";
 import MHeaders from "./module/MHeaders";
 
+const isDev = process.env.NODE_ENV === "development";
+
 function App() {
   const [module, setModule] = useState<ModuleType>(ModuleType.ModifyRes);
   const { isDarkTheme, toggleTheme } = useTheme();
 
   const handleClick = () => {
     chrome.tabs.create({
-      url: chrome.runtime.getURL("management.html?page=home"),
+      url: chrome.runtime.getURL(
+        isDev ? "management-dev.html?page=home" : "management.html?page=home"
+      ),
     });
   };
 
   const currentModule = useMemo(() => {
     const moduleMap = {
-      [ModuleType.ModifyRes]: {
-        title: "44",
-        component: <MResponse />,
-      },
-      [ModuleType.Headers]: {
-        title: "2",
-        component: <MHeaders />,
-      },
+      [ModuleType.ModifyRes]: <MResponse />,
+      [ModuleType.Headers]: <MHeaders />,
     };
     return moduleMap[module];
   }, [module]);
@@ -76,10 +74,7 @@ function App() {
           </MenuList>
           <Divider orientation="vertical" className="h-full" />
           <Box sx={{ flex: 1 }} className="p-2">
-            <Typography variant="h6" component="div" className="mb-2">
-              {currentModule.title}
-            </Typography>
-            {currentModule.component}
+            {currentModule}
           </Box>
         </Box>
       </Box>

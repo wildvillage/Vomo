@@ -12,7 +12,7 @@
     "service_worker": "background.js"
   },
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "dev.html",
     "default_icon": {
       "16": "vite.svg",
       "48": "vite.svg",
@@ -24,8 +24,8 @@
     "48": "vite.svg",
     "128": "vite.svg"
   },
-  "options_page": "management.html",
+  "options_page": "management-dev.html",
   "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'"
+    "extension_pages": "script-src 'self' http://localhost:5173; object-src 'self'"
   }
 }
