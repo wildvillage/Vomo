@@ -25,5 +25,5 @@
 
     "types": ["node", "chrome"]
   },
-  "include": ["src"]
+  "include": ["src", "public/manifest.ts"]
 }

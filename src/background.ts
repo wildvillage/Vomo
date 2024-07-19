@@ -1,5 +1,5 @@
 chrome.runtime.onInstalled.addListener(() => {
-  console.log("Vomo installed");
+  console.log("Vomo installed 11");
 
   chrome.declarativeNetRequest.updateDynamicRules({
     addRules: [
