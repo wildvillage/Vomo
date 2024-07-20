@@ -25,11 +25,21 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
+      port: 5173,
       hmr: {
         protocol: "ws",
         host: "localhost",
       },
-      port: 5173,
+      proxy: {
+        "src/background.ts": {
+          target: "http://localhost:5173",
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/src\/background/, "/background"),
+        },
+      },
+      watch: {
+        usePolling: true, // 解决文件系统不支持事件的情况
+      },
     },
   };
 });

@@ -15,8 +15,8 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { ModuleType } from "../common/type";
 import { useTheme } from "../common/theme";
-import MResponse from "./module/MResponse";
-import MHeaders from "./module/MHeaders";
+import ResponseRule from "./module/ResponseRule";
+import HeaderRule from "./module/HeaderRule";
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -27,15 +27,15 @@ function App() {
   const handleClick = () => {
     chrome.tabs.create({
       url: chrome.runtime.getURL(
-        isDev ? "management-dev.html?page=home" : "management.html?page=home"
+        isDev ? "management-dev.html" : "management.html"
       ),
     });
   };
 
   const currentModule = useMemo(() => {
     const moduleMap = {
-      [ModuleType.ModifyRes]: <MResponse />,
-      [ModuleType.Headers]: <MHeaders />,
+      [ModuleType.ModifyRes]: <ResponseRule />,
+      [ModuleType.Headers]: <HeaderRule />,
     };
     return moduleMap[module];
   }, [module]);
