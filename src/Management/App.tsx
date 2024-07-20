@@ -1,5 +1,5 @@
+import { useNavigate } from "react-router-dom";
 import {
-  Container,
   Typography,
   Button,
   AppBar,
@@ -15,7 +15,10 @@ import PageRouterProvider from "./router/index.tsx";
 
 const App: React.FC = () => {
   const { isDarkTheme, toggleTheme } = useTheme();
-  const handleClick = () => {};
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/");
+  };
   return (
     <Box className="h-screen">
       <AppBar className="static">
@@ -40,9 +43,7 @@ const App: React.FC = () => {
       </AppBar>
       {/* 占位元素 */}
       <div className="h-16" />
-      <div>
-        <PageRouterProvider />
-      </div>
+      <PageRouterProvider />
     </Box>
   );
 };

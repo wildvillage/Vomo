@@ -1,10 +1,10 @@
 import { FC } from "react";
-import { createHashRouter, RouterProvider } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Home from "../page/Home";
 import ResponseRule from "../page/ResponseRule";
 
-const router = createHashRouter([
+const routers = [
   {
     path: "/",
     element: <Home />,
@@ -17,10 +17,16 @@ const router = createHashRouter([
     path: "*",
     element: <Home />,
   },
-]);
+];
 
 const PageRouterProvider: FC = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <Routes>
+      {routers.map((router) => (
+        <Route key={router.path} path={router.path} element={router.element} />
+      ))}
+    </Routes>
+  );
 };
 
 export default PageRouterProvider;
