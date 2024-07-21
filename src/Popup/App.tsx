@@ -1,28 +1,19 @@
 import { useState, useMemo } from "react";
-import {
-  Box,
-  Toolbar,
-  AppBar,
-  IconButton,
-  Typography,
-  Button,
-  Divider,
-  MenuList,
-  MenuItem,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
+import cls from "classnames";
+import { Box, Divider, MenuList, MenuItem, IconButton } from "@mui/material";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import PauseIcon from "@mui/icons-material/Pause";
 import { ModuleType } from "../common/type";
-import { useTheme } from "../common/theme";
 import ResponseRule from "./module/ResponseRule";
 import HeaderRule from "./module/HeaderRule";
+import HeaderBar from "../components/HeaderBar";
+import { useAppStatus } from "../common/status";
 
 const isDev = process.env.NODE_ENV === "development";
 
 function App() {
   const [module, setModule] = useState<ModuleType>(ModuleType.ModifyRes);
-  const { isDarkTheme, toggleTheme } = useTheme();
+  const { appRunning, appToggle } = useAppStatus();
 
   const handleClick = () => {
     chrome.tabs.create({
@@ -43,27 +34,21 @@ function App() {
   return (
     <div className="h-96 w-[550px]">
       <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-              onClick={handleClick}
-            >
-              <MenuIcon />
+        <HeaderBar
+          onOptionClick={handleClick}
+          rightRender={
+            <IconButton onClick={appToggle}>
+              {appRunning ? <PauseIcon /> : <PlayArrowIcon />}
             </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Vomo
-            </Typography>
-            <Button color="inherit" onClick={toggleTheme}>
-              {isDarkTheme ? <DarkModeIcon /> : <LightModeIcon />}
-            </Button>
-          </Toolbar>
-        </AppBar>
-        <Box sx={{ display: "flex", flex: 1, height: "100%" }}>
+          }
+        />
+        <Box
+          sx={{ display: "flex", flex: 1, height: "100%" }}
+          className={cls({
+            "opacity-30": !appRunning,
+            "pointer-events-none": !appRunning,
+          })}
+        >
           <MenuList>
             <MenuItem onClick={() => setModule(ModuleType.ModifyRes)}>
               Modify response

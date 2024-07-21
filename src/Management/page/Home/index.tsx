@@ -11,9 +11,9 @@ import {
   Grid,
 } from "@mui/material";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
+import MultipleStopIcon from "@mui/icons-material/MultipleStop";
 
 const Home: FC = () => {
-  const handleClick = () => {};
   return (
     <Container className="pt-4 pb-4">
       <Grid container spacing={2}>
@@ -30,7 +30,7 @@ const Home: FC = () => {
               </Typography>
             </CardContent>
             <CardActions>
-              <Link to="/response">
+              <Link to="/options/response">
                 <Button size="small">Add rule</Button>
               </Link>
             </CardActions>
@@ -39,7 +39,7 @@ const Home: FC = () => {
         <Grid item xs={12} md={6}>
           <Card className="h-full flex flex-col">
             <CardHeader
-              avatar={<BorderColorIcon style={{ fontSize: 16 }} />}
+              avatar={<MultipleStopIcon style={{ fontSize: 16 }} />}
               title="Modify the headers of the request"
             />
             <CardContent className="grow">
@@ -48,7 +48,7 @@ const Home: FC = () => {
               </Typography>
             </CardContent>
             <CardActions>
-              <Link to="/response">
+              <Link to="/options/response">
                 <Button size="small">Add header</Button>
               </Link>
             </CardActions>

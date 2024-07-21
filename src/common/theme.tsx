@@ -36,6 +36,15 @@ const darkTheme = createTheme({
       main: "#f48fb1",
     },
   },
+  components: {
+    MuiList: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#212121",
+        },
+      },
+    },
+  },
 });
 
 const ThemeContext = createContext({
